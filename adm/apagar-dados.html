@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html ng-app="apagarDados">
+<head>
+	<title>Portal ADM - Início</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="apagarDadosCtrl">
+	<div id="fundo"></div>
+	<header>
+		<a href="index.html" style="text-decoration:none;"><h1>Sistema escolar</h1></a>
+	</header>
+	<section>
+		<h2>O que deseja fazer?</h2>
+		<div id="section" style="grid-template-columns: 50% 50%;">
+			<button onclick="formExclusaoAluno()" class="bt-menu">Apagar aluno</button>	
+
+			<button onclick="formExclusaoProfessor()" class="bt-menu">Apagar professor</button>
+
+			<button onclick="formExclusaoCurso()" class="bt-menu">Apagar curso</button>
+
+			<button onclick="formExclusaoDisciplina()" class="bt-menu">Apagar disciplina</button>
+		</div>
+
+		<div class="formExclusao" id="formExclusaoAluno">
+			<div></div>
+			<div>
+				<h2>Alunos</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaAlunos">
+						{{verAlunos()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormExclusaoAluno()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formExclusao" id="formExclusaoProfessor">
+			<div></div>
+			<div>
+				<h2>Professores</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaProfessores">
+						{{verProfessores()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormExclusaoProfessor()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formExclusao" id="formExclusaoCurso">
+			<div></div>
+			<div>
+				<h2>Cursos</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaCursos">
+						{{verCursos()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormExclusaoCurso()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formExclusao" id="formExclusaoDisciplina">
+			<div></div>
+			<div>
+				<h2>Disciplinas</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaDisciplinas">
+						{{verDisciplinas()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormExclusaoDisciplina()" class="close" title="Fechar">X</button>
+		</div>
+	</section>
+</body>
+<script src="../scripts.js"></script>
+<script src="../angular-1.7.8/angular.js"></script>
+<script>
+	var app = angular.module("apagarDados", []);
+
+	app.directive('apagarAluno', function () {
+		  
+	});
+
+	app.controller("apagarDadosCtrl", function($scope){
+		var db = openDatabase("sistema-escolar", "1.0", "Sistema escolar", 200000);
+
+		$scope.verAlunos = function(){
+			var listaAlunos = document.getElementById("listaAlunos");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM aluno", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaAlunos.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Data de nascimento</th><th>Apagar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).email+"</td><td>"+result.rows.item(i).telefone+"</td><td>"+result.rows.item(i).data_nascimento+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='apagarAluno("+result.rows.item(i).id+")'>Apaga</button></td></tr>";
+            listaAlunos.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.verProfessores = function(){
+			var listaProfessores = document.getElementById("listaProfessores");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM professor", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaProfessores.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Data de nascimento</th><th>Apagar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).email+"</td><td>"+result.rows.item(i).telefone+"</td><td>"+result.rows.item(i).data_nascimento+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='apagarProfessor("+result.rows.item(i).id+")'>Apaga</button></td></tr>";
+            listaProfessores.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.verCursos = function(){
+			var listaCursos = document.getElementById("listaCursos");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM curso", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaCursos.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Carga horária</th><th>Descrição</th><th>Apagar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).carga_horaria+"h</td><td>"+result.rows.item(i).descricao+"<td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='apagarCurso("+result.rows.item(i).id+")'>Apaga</button></td></tr>";
+            listaCursos.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.verDisciplinas = function(){
+			var listaDisciplinas = document.getElementById("listaDisciplinas");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM disciplina", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaDisciplinas.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Carga horária</th><th>Descrição</th><th>Dia</th><th>Horário</th><th>Apagar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).carga_horaria+"h</td><td>"+result.rows.item(i).descricao+"</td><td>"+result.rows.item(i).dia+"</td><td>"+result.rows.item(i).horario+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='apagarDisciplina("+result.rows.item(i).id+")'>Apaga</button></td></tr>";
+            listaDisciplinas.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+	});
+</script>
+</html>

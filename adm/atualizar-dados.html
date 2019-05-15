@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html ng-app="atualizarDados">
+<head>
+	<title>Portal ADM - Início</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="atualizarDadosCtrl">
+	<div id="fundo"></div>
+	<header>
+		<a href="index.html" style="text-decoration:none;"><h1>Sistema escolar</h1></a>
+	</header>
+	<section>
+		<h2>O que deseja fazer?</h2>
+		<div id="section" style="grid-template-columns: 50% 50%;">
+			<button onclick="formAtualizacaoAluno()" class="bt-menu">Atualizar aluno</button>	
+
+			<button onclick="formAtualizacaoProfessor()" class="bt-menu">Atualizar professor</button>
+
+			<button onclick="formAtualizacaoCurso()" class="bt-menu">Atualizar curso</button>
+
+			<button onclick="formAtualizacaoDisciplina()" class="bt-menu">Atualizar disciplina</button>
+		</div>
+
+		<div class="formAtualizacao" id="formAtualizacaoAluno">
+			<div></div>
+			<div>
+				<h2>Alunos</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaAlunos">
+						{{verAlunos()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormAtualizacaoAluno()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formAtualizacao" id="formAtualizacaoProfessor">
+			<div></div>
+			<div>
+				<h2>Professores</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaProfessores">
+						{{verProfessores()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormAtualizacaoProfessor()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formAtualizacao" id="formAtualizacaoCurso">
+			<div></div>
+			<div>
+				<h2>Cursos</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaCursos">
+						{{verCursos()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormAtualizacaoCurso()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formAtualizacao" id="formAtualizacaoDisciplina">
+			<div></div>
+			<div>
+				<h2>Disciplinas</h2>
+				<div class="pesquisa">
+					<img src="search.png" id="icon-pesquisa" style="">
+					<input type="text" class="campo-pesquisa" name="pesquisar">
+				</div>
+				<div id="table">
+					<table id="listaDisciplinas">
+						{{verDisciplinas()}}
+					</table>
+				</div>
+			</div>
+			<button onclick="fechaFormAtualizacaoDisciplina()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroAluno">
+			<div></div>
+			<div>
+				<h1>Atualização</h1>
+				<form name="formAluno">
+					<input type="text" class="campos-form" id="a_nome" name="nome" ng-model="aluno.nome" placeholder="Digite o nome do aluno" >
+					<input type="text" class="campos-form" id="a_email" name="email" ng-model="aluno.email" placeholder="Digite o email do aluno" >
+					<input type="password" class="campos-form" id="a_senha" name="senha" ng-model="aluno.senha" placeholder="Escolha uma senha" >
+					<div class="div-eye">
+						<img src="/sistema-escolar/eye-blocked.png" onclick="viewPasswordAluno()" class="eye" id="eye" title="Mostrar senha">
+					</div>
+					<input type="text" onkeypress="return mask(event, this, '##/##/####')" maxlength="10" class="campos-form" id="a_data_nascimento" name="data_nascimento" ng-model="aluno.data_nascimento" placeholder="Digite a data de nascimento" >
+					<input type="text" onkeypress="return mask(event, this, '(##) #########')" maxlength="14" class="campos-form" id="a_telefone" name="telefone" ng-model="aluno.telefone" placeholder="Digite o telefone do aluno" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="atualizarAluno(aluno)">Concluir</button>
+				</form>
+			</div>
+			<button onclick="fechaFormAtualizaAluno()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroProfessor">
+			<div></div>
+			<div>
+				<h1>Atualização</h1>
+				<form name="formProfessor">
+					<input type="text" class="campos-form" id="p_nome" name="nome" ng-model="professor.nome" placeholder="Digite o nome do professor" >
+					<input type="text" class="campos-form" id="p_email" name="email" ng-model="professor.email" placeholder="Digite o email do professor" >
+					<input type="password" class="campos-form" id="p_senha" name="senha" ng-model="professor.senha" placeholder="Escolha uma senha" >
+					<div class="div-eye">
+						<img src="/sistema-escolar/eye-blocked.png" onclick="viewPasswordProfessor()" class="eye" id="eye" title="Mostrar senha">
+					</div>
+					<input type="text" onkeypress="return mask(event, this, '##/##/####')" maxlength="10" class="campos-form" id="p_data_nascimento" name="data_nascimento" ng-model="professor.data_nascimento" placeholder="Digite a data de nascimento" >
+					<input type="text" onkeypress="return mask(event, this, '(##) #########')" maxlength="14" class="campos-form" id="p_telefone" name="telefone" ng-model="professor.telefone" placeholder="Digite o telefone do professor" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="atualizarProfessor(professor)">Concluir</button>
+				</form>
+			</div>
+			<button onclick="fechaFormAtualizaProfessor()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroCurso">
+			<div></div>
+			<div>
+				<h1>Atualização</h1>
+				<form name="formCurso">
+					<input type="text" class="campos-form" id="c_nome" name="nome" ng-model="curso.nome" placeholder="Digite o nome do curso" >
+					<input type="text" onkeypress="return mask(event, this, '####')" maxlength="4" class="campos-form" id="c_ch" name="ch" ng-model="curso.ch" placeholder="Digite a carga horária do curso" >
+					<input type="text" class="campos-form" id="c_descricao" name="descricao" ng-model="curso.descricao" placeholder="De uma descrição do curso" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="atualizarCurso(curso)">Concluir</button>
+				</form>
+			</div>
+			<button onclick="fechaFormAtualizaCurso()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroDisciplina">
+			<div></div>
+			<div>
+				<h1>Atualização</h1>
+				<form name="formDisciplina">
+					<input type="text" class="campos-form" id="d_nome" name="nome" ng-model="disciplina.nome" placeholder="Digite o nome da disciplina" >
+					<input type="text" onkeypress="return mask(event, this, '###')" maxlength="3" class="campos-form" id="d_ch" name="ch" ng-model="disciplina.ch" placeholder="Digite a carga horária da disciplina" >
+					<input type="text" class="campos-form" id="d_descricao" name="descricao" ng-model="disciplina.descricao" placeholder="De uma descrição da disciplina" >
+					<select class="campos-form" id="d_dia" ng-model="disciplina.dia" ng-options="dia.dia for dia in dias">
+						<option value="">Selecione o dia da disciplina</option>
+					</select>
+					<input type="text" onkeypress="return mask(event, this, '##:##')" maxlength="5" class="campos-form" id="d_horario" name="horario" ng-model="disciplina.horario" placeholder="Digite o horário da disciplina" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="atualizarDisciplina(disciplina)">Concluir</button>
+				</form>
+			</div>
+			<button onclick="fechaFormAtualizaDisciplina()" class="close" title="Fechar">X</button>
+		</div>
+	</section>
+</body>
+<script src="../scripts.js"></script>
+<script src="../angular-1.7.8/angular.js"></script>
+<script>
+	angular.module("atualizarDados", []);
+	angular.module("atualizarDados").controller("atualizarDadosCtrl", function($scope){
+		var db = openDatabase("sistema-escolar", "1.0", "Sistema escolar", 200000);
+
+		$scope.dias = [
+			{dia: "Segunda"},
+			{dia: "Terça"},
+			{dia: "Quarta"},
+			{dia: "Quinta"},
+			{dia: "Sexta"},
+			{dia: "Sábado"}
+		];
+
+		$scope.verAlunos = function(){
+			var listaAlunos = document.getElementById("listaAlunos");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM aluno", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaAlunos.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Data de nascimento</th><th>Atualizar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).email+"</td><td>"+result.rows.item(i).telefone+"</td><td>"+result.rows.item(i).data_nascimento+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='formAtualizaAluno("+result.rows.item(i).id+")'>Atualiza</button></td></tr>";
+            listaAlunos.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.atualizarAluno = function(aluno){
+			var id = document.getElementById("formCadastroAluno").getAttribute("name");
+			var nome = aluno.nome; 
+			var email = aluno.email; 
+			var senha = aluno.senha; 
+			var data_nascimento = aluno.data_nascimento; 
+			var telefone = aluno.telefone;
+
+			db.transaction(function(tx){
+				tx.executeSql("UPDATE aluno SET nome=?, email=?, senha=?, data_nascimento=?, telefone=? WHERE id=?",[nome,email,senha,data_nascimento,telefone,id]);
+			});
+
+			alert("Os dados foram atualizados com sucesso!");
+
+			fechaFormAtualizaAluno();
+
+			delete $scope.aluno;
+		};
+
+		$scope.verProfessores = function(){
+			var listaProfessores = document.getElementById("listaProfessores");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM professor", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaProfessores.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Data de nascimento</th><th>Atualizar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).email+"</td><td>"+result.rows.item(i).telefone+"</td><td>"+result.rows.item(i).data_nascimento+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='formAtualizaProfessor("+result.rows.item(i).id+")'>Atualiza</button></td></tr>";
+            listaProfessores.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.atualizarProfessor = function(professor){
+			var id = document.getElementById("formCadastroProfessor").getAttribute("name");
+			var nome = professor.nome; 
+			var email = professor.email; 
+			var senha = professor.senha; 
+			var data_nascimento = professor.data_nascimento; 
+			var telefone = professor.telefone;
+
+			db.transaction(function(tx){
+				tx.executeSql("UPDATE professor SET nome=?, email=?, senha=?, data_nascimento=?, telefone=? WHERE id=?",[nome,email,senha,data_nascimento,telefone,id]);
+			});
+
+			alert("Os dados foram atualizados com sucesso!");
+
+			fechaFormAtualizaProfessor();
+
+			delete $scope.professor;
+		};
+
+		$scope.verCursos = function(){
+			var listaCursos = document.getElementById("listaCursos");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM curso", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaCursos.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Carga horária</th><th>Descrição</th><th>Atualizar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).carga_horaria+"h</td><td>"+result.rows.item(i).descricao+"<td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='formAtualizaCurso("+result.rows.item(i).id+")'>Atualiza</button></td></tr>";
+            listaCursos.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.atualizarCurso = function(curso){
+			var id = document.getElementById("formCadastroCurso").getAttribute("name");
+			var nome = curso.nome; 
+			var carga_horaria = curso.ch; 
+			var descricao = curso.descricao; 
+			
+			db.transaction(function(tx){
+				tx.executeSql("UPDATE curso SET nome=?, carga_horaria=?, descricao=? WHERE id=?",[nome,carga_horaria,descricao,id]);
+			});
+
+			alert("Os dados foram atualizados com sucesso!");
+
+			fechaFormAtualizaCurso();
+
+			delete $scope.curso;
+		};
+
+		$scope.verDisciplinas = function(){
+			var listaDisciplinas = document.getElementById("listaDisciplinas");
+			db.transaction(function(tx){
+				tx.executeSql("SELECT * FROM disciplina", [], function(tx, result){
+          console.log('deu certo!');
+          console.log(result);
+
+ 					listaDisciplinas.innerHTML = "<tr><th>Id</th><th>Nome</th><th>Carga horária</th><th>Descrição</th><th>Dia</th><th>Horário</th><th>Atualizar</th></tr>";
+          for(var i = 0; i < result.rows.length; i++){
+            var row = "<tr id='"+result.rows.item(i).id+"'><td>"+result.rows.item(i).id+"</td><td>"+result.rows.item(i).nome+"</td><td>"+result.rows.item(i).carga_horaria+"h</td><td>"+result.rows.item(i).descricao+"</td><td>"+result.rows.item(i).dia+"</td><td>"+result.rows.item(i).horario+"</td><td><button class='bt-style bt-form' id='"+result.rows.item(i).id+"' name='submit' title='Atualizar' onclick='formAtualizaDisciplina("+result.rows.item(i).id+")'>Atualiza</button></td></tr>";
+            listaDisciplinas.innerHTML += row;
+          }
+        },
+        function(tx, error){
+          console.log('deu pau!');
+          console.log(error);
+        });
+			});
+		};
+
+		$scope.atualizarDisciplina = function(disciplina){
+			var id = document.getElementById("formCadastroDisciplina").getAttribute("name");
+			var nome = disciplina.nome; 
+			var carga_horaria = disciplina.ch; 
+			var descricao = disciplina.descricao;
+			var dia = disciplina.dia.dia; 
+			var horario = disciplina.horario;
+
+			db.transaction(function(tx){
+				tx.executeSql("UPDATE disciplina SET nome=?, carga_horaria=?, descricao=?, dia=?, horario=? WHERE id=?",[nome,carga_horaria,descricao,dia,horario,id]);
+			});
+
+			alert("Os dados foram atualizados com sucesso!");
+
+			fechaFormAtualizaDisciplina();
+
+			delete $scope.disciplina;
+		};
+	});
+</script>
+</html>

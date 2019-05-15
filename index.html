@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="sistemaEscolar">
+<head>
+	<title>Sistema escolar - Login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="sistemaEscolarCtrl">
+	<div id="formCadastro">
+		<div></div>
+		<div>
+			<h1>Login</h1>
+			<form method="POST" action="adm/">
+				<input type="text" class="campos-form" id="email" name="email" placeholder="Digite seu email" required>
+				<input type="password" class="campos-form" id="senha" name="senha" placeholder="Digite sua senha" required>
+				<div class="div-eye">
+					<img src="/sistema-escolar/eye-blocked.png" onclick="viewPassword()" class="eye" id="eye" title="Mostrar senha">
+				</div>
+				<input type="submit" class="bt-style bt-form" name="entrar" id="entrar" value="Entrar" title="Entrar">
+			</form>
+		</div>
+	</div>
+</body>
+<script src="scripts.js"></script>
+<script src="angular-1.7.8/angular.js"></script>
+<script>
+	angular.module("sistemaEscolar", []);
+	angular.module("sistemaEscolar").controller("sistemaEscolarCtrl", function($scope){
+		var db = openDatabase("sistema-escolar", "1.0", "Sistema escolar", 200000);
+
+		db.transaction(function(tx){
+			tx.executeSql("CREATE TABLE if not exists aluno (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nome, email, senha, data_nascimento, telefone)");
+			tx.executeSql("CREATE TABLE if not exists professor (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nome, email, senha, data_nascimento, telefone)");
+			tx.executeSql("CREATE TABLE if not exists curso (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nome, carga_horaria, descricao)");
+			tx.executeSql("CREATE TABLE if not exists disciplina (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, nome, carga_horaria, descricao, dia, horario)");
+		});
+	});
+</script>
+</html>

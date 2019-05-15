@@ -1,0 +1,251 @@
+body{
+	font-family: Verdana;
+	background-color: rgb(240,240,240);
+	margin: 0;
+	padding: 0;
+}
+
+header{
+	width: 100%;
+	background-color: rgb(235,235,235);
+	box-shadow: 0px 0px 400px 0px rgb(100,100,100);
+}
+
+form{
+	margin-top: 100px;
+}
+
+#section{
+	display: grid;
+	grid-template-columns: 33.333333333% 33.333333333% 33.333333333%;
+	padding: 50px 0px 0px 0px;
+}
+
+footer{
+	color: rgb(30,130,30);
+	width: 100%;
+	text-align: center;
+	padding: 75px 0px 95px 0px;
+	background-color: rgb(235,235,235);
+	box-shadow: 0px 0px 400px 0px rgb(100,100,100);
+}
+
+tr{
+	background-color: rgb(220,220,220);
+}
+
+th{
+	color: rgb(255,255,255);
+	background-color: rgb(30,130,30);
+	height: 40px;
+	cursor: default;
+}
+
+td{
+	text-align: center;
+}
+
+h1{
+	color: rgb(30,130,30);
+	text-align: center;
+	font-size: 60px;
+	padding: 30px 0px;
+	margin: 0;
+}
+
+h2{
+	color: rgb(100,100,100);
+	text-align: center;
+	font-size: 50px;
+	padding: 80px 0px 0px 0px;
+	margin: 0;
+	font-family: cursive;
+}
+
+.bt-menu{
+	background-color: rgb(245,245,245);
+	width: 250px;
+	line-height: 250px;
+	border-radius: 1000px;
+	margin: 50px auto;
+	text-align: center;
+	box-shadow: 0px 0px 500px 0px rgb(100,100,100);
+	color: rgb(30,130,30);
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+	font-size: 18px;
+	outline: none;
+}
+
+.bt-menu:hover{
+	box-shadow: 0px 0px 500px 1px rgb(30,130,30);
+}
+
+#formCadastroAluno,#formCadastroProfessor,#formCadastroCurso,#formCadastroDisciplina,
+#formAtualizacaoAluno,#formAtualizacaoProfessor,#formAtualizacaoCurso,#formAtualizacaoDisciplina,
+#formExclusaoAluno,#formExclusaoProfessor,#formExclusaoCurso,#formExclusaoDisciplina{
+	display: none;
+}
+
+.formCadastro{
+	position: fixed;
+	top: 18%;
+	left: 50%;
+  transform: translateX(-50%);
+	grid-template-columns: 80px auto 80px;
+	background-color: rgb(220,220,220);
+	width: 600px;
+	height: 450px;
+	padding: 0px 0px 150px 0px;
+	box-shadow: 0px 0px 500px 0px rgb(100,100,100);
+}
+
+.campos-form{
+	width: 100%;
+	padding: 10px 0px;
+	text-align: center;
+	font-size: 18px;
+	border: 1px solid rgb(200,200,200);
+	border-radius: 5px;
+	background-color: rgb(240,240,240);
+	outline: none;
+	margin-bottom: 10px;
+}
+
+.campos-form:hover{
+	box-shadow: 0px 0px 30px 1px rgb(200,200,200);
+}
+
+.campos-form:focus{
+	box-shadow: 0px 0px 30px 1px rgb(200,200,200);
+}
+
+.bt-style{
+	font-family: monospace;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(30,130,30);
+	color: rgb(255,255,255);
+	cursor: pointer;
+	outline: none;
+}
+
+.bt-style:hover{
+	box-shadow: 0px 0px 30px 1px rgb(150,150,150);
+}
+
+.bt-form{
+	font-size: 18px;
+	float: right;
+	padding: 10px 10px;
+	margin-top: 10px;
+}
+
+.formAtualizacao,.formExclusao{
+	position: fixed;
+	top: 10%;
+	left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: 80px auto 80px;
+	background-color: rgb(220,220,220);
+	width: 80%;
+	height: 650px;
+	box-shadow: 0px 0px 1000px 0px rgb(0,0,0);
+}
+
+.formAtualizacao h2,.formExclusao h2{
+	padding: 0px 0px 20px 0px;
+}
+
+#table{
+	overflow: auto;
+	width: 90%;
+	height: 400px;
+	margin: auto;
+	background-color: rgb(200,200,200);
+	border: 3px ridge rgb(200,200,200);
+}
+
+#listaAlunos,#listaProfessores,#listaCursos,#listaDisciplinas{
+	width: 100%;
+}
+
+#icon-pesquisa{
+	width: 15px;
+	height: 15px;
+	padding: 9.1px 11.5px;
+}
+
+.campo-pesquisa{
+	width: 345px;
+	padding: 8px 8px;
+	font-size: 15px;
+	border: none;
+	border-radius: 0px 4px 4px 0px;
+	background-color: rgb(240,240,240);
+	border-left: 1px solid rgb(200,200,200);
+	outline: none;
+	float:right;
+}
+
+.pesquisa{
+	background-color: rgb(30,130,30);
+	height: 33.28px;
+	margin-left: 5%;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	width: 400px;
+	border: 1px solid rgb(200,200,200);
+}
+
+.eye{
+	width: 21px;
+	height: 21px;
+	cursor: pointer;
+}
+
+.div-eye{
+	float: left;
+	background-color: rgb(240,240,240);
+	width: 40.00312px;
+	height: 21px;
+	border-radius: 0px 5px 5px 0px;
+	padding: 10px 0px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: rgb(200,200,200);
+}
+
+#p_senha, #a_senha{
+	float: left;
+	width: 398px;
+	height: 21px;
+	border-right: none;
+	border-bottom-right-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
+.close{
+	float: right;
+	width: 80px;
+	height: 60px;
+	font-size: 22px;
+	padding: 0;
+	border: none;
+	font-family: cursive;
+	color: rgb(100,100,100);
+	cursor: pointer;
+	outline: none;
+	font-weight: bold;
+	background-color: transparent;
+}
+
+#fundo{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 130%;
+	background-color: rgba(0,0,0,.8);
+}

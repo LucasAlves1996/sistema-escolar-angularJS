@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html ng-app="cadastros">
+<head>
+	<title>Portal ADM - Início</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="cadastrosCtrl">
+	<div id="fundo"></div>
+	<header>
+		<a href="index.html" style="text-decoration:none;" title="Voltar ao início"><h1>Sistema escolar</h1></a>
+	</header>
+	<section>
+		<h2>O que deseja fazer?</h2>
+		<div id="section">
+			<button onclick="formCadastroAluno()" class="bt-menu">Cadastrar aluno</button>	
+
+			<button onclick="formCadastroProfessor()" class="bt-menu">Cadastrar professor</button>
+
+			<button onclick="formCadastroCurso()" class="bt-menu">Cadastrar curso</button>
+
+			<button onclick="formCadastroDisciplina()" class="bt-menu">Cadastrar disciplina</button>
+
+			<button onclick="irParaAtualizarDados()" class="bt-menu">Atualizar dados</button>
+
+			<button onclick="irParaApagarDados()" class="bt-menu">Apagar dados</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroAluno">
+			<div></div>
+			<div>
+				<h1>Cadastro</h1>
+				<form name="formAluno">
+					<input type="text" class="campos-form" id="a_nome" name="nome" ng-model="aluno.nome" placeholder="Digite o nome do aluno" >
+					<input type="text" class="campos-form" id="a_email" name="email" ng-model="aluno.email" placeholder="Digite o email do aluno" >
+					<input type="password" class="campos-form" id="a_senha" name="senha" ng-model="aluno.senha" placeholder="Escolha uma senha" >
+					<div class="div-eye">
+						<img src="/sistema-escolar/eye-blocked.png" onclick="viewPasswordAluno()" class="eye" id="eye" title="Mostrar senha">
+					</div>
+					<input type="text" onkeypress="return mask(event, this, '##/##/####')" maxlength="10" class="campos-form" id="a_data_nascimento" name="data_nascimento" ng-model="aluno.data_nascimento" placeholder="Digite a data de nascimento" >
+					<input type="text" onkeypress="return mask(event, this, '(##) #########')" maxlength="14" class="campos-form" id="a_telefone" name="telefone" ng-model="aluno.telefone" placeholder="Digite o telefone do aluno" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="cadastrarAluno(aluno)">Cadastrar</button>
+				</form>
+			</div>
+			<button onclick="fechaFormCadastroAluno()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroProfessor">
+			<div></div>
+			<div>
+				<h1>Cadastro</h1>
+				<form name="formProfessor">
+					<input type="text" class="campos-form" id="p_nome" name="nome" ng-model="professor.nome" placeholder="Digite o nome do professor" >
+					<input type="text" class="campos-form" id="p_email" name="email" ng-model="professor.email" placeholder="Digite o email do professor" >
+					<input type="password" class="campos-form" id="p_senha" name="senha" ng-model="professor.senha" placeholder="Escolha uma senha" >
+					<div class="div-eye">
+						<img src="/sistema-escolar/eye-blocked.png" onclick="viewPasswordProfessor()" class="eye" id="eye" title="Mostrar senha">
+					</div>
+					<input type="text" onkeypress="return mask(event, this, '##/##/####')" maxlength="10" class="campos-form" id="p_data_nascimento" name="data_nascimento" ng-model="professor.data_nascimento" placeholder="Digite a data de nascimento" >
+					<input type="text" onkeypress="return mask(event, this, '(##) #########')" maxlength="14" class="campos-form" id="p_telefone" name="telefone" ng-model="professor.telefone" placeholder="Digite o telefone do professor" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="cadastrarProfessor(professor)">Cadastrar</button>
+				</form>
+			</div>
+			<button onclick="fechaFormCadastroProfessor()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroCurso">
+			<div></div>
+			<div>
+				<h1>Cadastro</h1>
+				<form name="formCurso">
+					<input type="text" class="campos-form" id="c_nome" name="nome" ng-model="curso.nome" placeholder="Digite o nome do curso" >
+					<input type="text" onkeypress="return mask(event, this, '####')" maxlength="4" class="campos-form" id="c_ch" name="ch" ng-model="curso.ch" placeholder="Digite a carga horária do curso" >
+					<input type="text" class="campos-form" id="c_descricao" name="descricao" ng-model="curso.descricao" placeholder="De uma descrição do curso" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="cadastrarCurso(curso)">Cadastrar</button>
+				</form>
+			</div>
+			<button onclick="fechaFormCadastroCurso()" class="close" title="Fechar">X</button>
+		</div>
+
+		<div class="formCadastro" id="formCadastroDisciplina">
+			<div></div>
+			<div>
+				<h1>Cadastro</h1>
+				<form name="formDisciplina">
+					<input type="text" class="campos-form" id="d_nome" name="nome" ng-model="disciplina.nome" placeholder="Digite o nome da disciplina" >
+					<input type="text" onkeypress="return mask(event, this, '###')" maxlength="3" class="campos-form" id="d_ch" name="ch" ng-model="disciplina.ch" placeholder="Digite a carga horária da disciplina" >
+					<input type="text" class="campos-form" id="d_descricao" name="descricao" ng-model="disciplina.descricao" placeholder="De uma descrição da disciplina" >
+					<select class="campos-form" id="d_dia" ng-model="disciplina.dia" ng-options="dia.dia for dia in dias">
+						<option value="">Selecione o dia da disciplina</option>
+					</select>
+					<input type="text" onkeypress="return mask(event, this, '##:##')" maxlength="5" class="campos-form" id="d_horario" name="horario" ng-model="disciplina.horario" placeholder="Digite o horário da disciplina" >
+					<button class="bt-style bt-form" name="submit" title="Finalizar cadastro" ng-click="cadastrarDisciplina(disciplina)">Cadastrar</button>
+				</form>
+			</div>
+			<button onclick="fechaFormCadastroDisciplina()" class="close" title="Fechar">X</button>
+		</div>
+	</section>
+</body>
+<script src="../scripts.js"></script>
+<script src="../angular-1.7.8/angular.js"></script>
+<script>
+	angular.module("cadastros", []);
+	angular.module("cadastros").controller("cadastrosCtrl", function($scope){
+		var db = openDatabase("sistema-escolar", "1.0", "Sistema escolar", 200000);
+
+		$scope.dias = [
+			{dia: "Segunda"},
+			{dia: "Terça"},
+			{dia: "Quarta"},
+			{dia: "Quinta"},
+			{dia: "Sexta"},
+			{dia: "Sábado"}
+		];
+
+		$scope.cadastrarAluno = function(aluno){
+			if(document.getElementById("a_nome").value=="" && document.getElementById("a_email").value!="" && document.getElementById("a_senha").value!="" && document.getElementById("a_data_nascimento").value!="" && document.getElementById("a_telefone").value!=""){
+				alert("O campo nome deve ser preenchido!");
+			}
+			else if(document.getElementById("a_nome").value!="" && document.getElementById("a_email").value=="" && document.getElementById("a_senha").value!="" && document.getElementById("a_data_nascimento").value!="" && document.getElementById("a_telefone").value!=""){
+				alert("O campo email deve ser preenchido!");
+			}
+			else if(document.getElementById("a_nome").value!="" && document.getElementById("a_email").value!="" && document.getElementById("a_senha").value=="" && document.getElementById("a_data_nascimento").value!="" && document.getElementById("a_telefone").value!=""){
+				alert("O campo senha deve ser preenchido!");
+			}
+			else if(document.getElementById("a_nome").value!="" && document.getElementById("a_email").value!="" && document.getElementById("a_senha").value!="" && document.getElementById("a_data_nascimento").value=="" && document.getElementById("a_telefone").value!=""){
+				alert("O campo data de nascimento deve ser preenchido!");
+			}
+			else if(document.getElementById("a_nome").value!="" && document.getElementById("a_email").value!="" && document.getElementById("a_senha").value!="" && document.getElementById("a_data_nascimento").value!="" && document.getElementById("a_telefone").value==""){
+				alert("O campo telefone deve ser preenchido!");
+			}
+			else if(document.getElementById("a_nome").value=="" || document.getElementById("a_email").value=="" || document.getElementById("a_senha").value=="" || document.getElementById("a_data_nascimento").value=="" || document.getElementById("a_telefone").value==""){
+				alert("Todos os campos devem ser preenchidos!");
+			}
+			else{
+				var nome = aluno.nome; 
+				var email = aluno.email; 
+				var senha = aluno.senha; 
+				var data_nascimento = aluno.data_nascimento; 
+				var telefone = aluno.telefone;
+
+				db.transaction(function(tx){
+					tx.executeSql("INSERT INTO aluno (nome, email, senha, data_nascimento, telefone) values(?,?,?,?,?)",
+					[nome, email, senha, data_nascimento, telefone]);
+				});
+
+				alert("Os seguintes dados foram cadastrados com sucesso:\n"+nome+"\n"+email+"\n"+senha+"\n"+data_nascimento+"\n"+telefone);
+				
+				delete $scope.aluno;
+			}
+		};
+
+		$scope.cadastrarProfessor = function(professor){
+			if(document.getElementById("p_nome").value=="" && document.getElementById("p_email").value!="" && document.getElementById("p_senha").value!="" && document.getElementById("p_data_nascimento").value!="" && document.getElementById("p_telefone").value!=""){
+				alert("O campo nome deve ser preenchido!");
+			}
+			else if(document.getElementById("p_nome").value!="" && document.getElementById("p_email").value=="" && document.getElementById("p_senha").value!="" && document.getElementById("p_data_nascimento").value!="" && document.getElementById("p_telefone").value!=""){
+				alert("O campo email deve ser preenchido!");
+			}
+			else if(document.getElementById("p_nome").value!="" && document.getElementById("p_email").value!="" && document.getElementById("p_senha").value=="" && document.getElementById("p_data_nascimento").value!="" && document.getElementById("p_telefone").value!=""){
+				alert("O campo senha deve ser preenchido!");
+			}
+			else if(document.getElementById("p_nome").value!="" && document.getElementById("p_email").value!="" && document.getElementById("p_senha").value!="" && document.getElementById("p_data_nascimento").value=="" && document.getElementById("p_telefone").value!=""){
+				alert("O campo data de nascimento deve ser preenchido!");
+			}
+			else if(document.getElementById("p_nome").value!="" && document.getElementById("p_email").value!="" && document.getElementById("p_senha").value!="" && document.getElementById("p_data_nascimento").value!="" && document.getElementById("p_telefone").value==""){
+				alert("O campo telefone deve ser preenchido!");
+			}
+			else if(document.getElementById("p_nome").value=="" || document.getElementById("p_email").value=="" || document.getElementById("p_senha").value=="" || document.getElementById("p_data_nascimento").value=="" || document.getElementById("p_telefone").value==""){
+				alert("Todos os campos devem ser preenchidos!");
+			}
+			else{
+				var nome = professor.nome; 
+				var email = professor.email; 
+				var senha = professor.senha; 
+				var data_nascimento = professor.data_nascimento; 
+				var telefone = professor.telefone;
+
+				db.transaction(function(tx){
+					tx.executeSql("INSERT INTO professor (nome, email, senha, data_nascimento, telefone) values(?,?,?,?,?)",
+					[nome, email, senha, data_nascimento, telefone]);
+				});
+
+				alert("Os seguintes dados foram cadastrados com sucesso:\n"+nome+"\n"+email+"\n"+senha+"\n"+data_nascimento+"\n"+telefone);
+				
+				delete $scope.professor;
+			}
+		};
+
+		$scope.cadastrarCurso = function(curso){
+			if(document.getElementById("c_nome").value=="" && document.getElementById("c_ch").value!="" && document.getElementById("c_descricao").value!=""){
+				alert("O campo nome deve ser preenchido!");
+			}
+			else if(document.getElementById("c_nome").value!="" && document.getElementById("c_ch").value=="" && document.getElementById("c_descricao").value!=""){
+				alert("O campo carga horária deve ser preenchido!");
+			}
+			else if(document.getElementById("c_nome").value!="" && document.getElementById("c_ch").value!="" && document.getElementById("c_descricao").value==""){
+				alert("O campo descrição deve ser preenchido!");
+			}
+			else if(document.getElementById("c_nome").value=="" || document.getElementById("c_ch").value=="" || document.getElementById("c_descricao").value==""){
+				alert("Todos os campos devem ser preenchidos!");
+			}
+			else{
+				var nome = curso.nome; 
+				var carga_horaria = curso.ch; 
+				var descricao = curso.descricao; 
+
+				db.transaction(function(tx){
+					tx.executeSql("INSERT INTO curso (nome, carga_horaria, descricao) values(?,?,?)",
+					[nome, carga_horaria, descricao]);
+				});
+
+				alert("Os seguintes dados foram cadastrados com sucesso:\n"+nome+"\n"+carga_horaria+"\n"+descricao);
+				
+				delete $scope.curso;
+			}
+		};
+
+		$scope.cadastrarDisciplina = function(disciplina){
+			if(document.getElementById("d_nome").value=="" && document.getElementById("d_ch").value!="" && document.getElementById("d_descricao").value!="" && document.getElementById("d_dia").value!="" && document.getElementById("d_horario").value!=""){
+				alert("O campo nome deve ser preenchido!");
+			}
+			else if(document.getElementById("d_nome").value!="" && document.getElementById("d_ch").value=="" && document.getElementById("d_descricao").value!="" && document.getElementById("d_dia").value!="" && document.getElementById("d_horario").value!=""){
+				alert("O campo carga horária deve ser preenchido!");
+			}
+			else if(document.getElementById("d_nome").value!="" && document.getElementById("d_ch").value!="" && document.getElementById("d_descricao").value=="" && document.getElementById("d_dia").value!="" && document.getElementById("d_horario").value!=""){
+				alert("O campo descrição deve ser preenchido!");
+			}
+			else if(document.getElementById("d_nome").value!="" && document.getElementById("d_ch").value!="" && document.getElementById("d_descricao").value!="" && document.getElementById("d_dia").value=="" && document.getElementById("d_horario").value!=""){
+				alert("O campo dia deve ser preenchido!");
+			}
+			else if(document.getElementById("d_nome").value!="" && document.getElementById("d_ch").value!="" && document.getElementById("d_descricao").value!="" && document.getElementById("d_dia").value!="" && document.getElementById("d_horario").value==""){
+				alert("O campo horário deve ser preenchido!");
+			}
+			else if(document.getElementById("d_nome").value=="" || document.getElementById("d_ch").value=="" || document.getElementById("d_descricao").value=="" || document.getElementById("d_dia").value=="" || document.getElementById("d_horario").value==""){
+				alert("Todos os campos devem ser preenchidos!");
+			}
+			else{
+				var nome = disciplina.nome; 
+				var carga_horaria = disciplina.ch; 
+				var descricao = disciplina.descricao; 
+				var dia = disciplina.dia.dia; 
+				var horario = disciplina.horario;
+
+				db.transaction(function(tx){
+					tx.executeSql("INSERT INTO disciplina (nome, carga_horaria, descricao, dia, horario) values(?,?,?,?,?)",
+					[nome, carga_horaria, descricao, dia, horario]);
+				});
+
+				alert("Os seguintes dados foram cadastrados com sucesso:\n"+nome+"\n"+carga_horaria+"\n"+descricao+"\n"+dia+"\n"+horario);
+				
+				delete $scope.disciplina;
+			}
+		};
+	});
+</script>
+</html>
